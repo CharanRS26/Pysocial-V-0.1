@@ -1,0 +1,28 @@
+!DOCTYPE html
+html lang=en
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0
+    title{{ user.username }}'s Profiletitle
+head
+body
+    h1{{ user.username }}'s Profileh1
+
+    img src={{ url_for('static', filename='profile_pics' + user.profile_picture) }} alt=Profile Picture style=max-width 200px;
+
+    pBio {{ user.bio or 'No bio available' }}p
+
+    {% if current_user == user %}
+        !-- Form for editing the user's own profile --
+        form method=post action=
+            label for=bioEdit Biolabel
+            textarea id=bio name=bio rows=4 cols=50{{ user.bio }}textarea
+            br
+            button type=submitUpdate Profilebutton
+        form
+    {% endif %}
+
+    !-- Add more profile information as needed --
+
+body
+html

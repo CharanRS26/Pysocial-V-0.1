@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to the Pysocial App Early dev </h1>
+
+    {% if current_user.is_authenticated %}
+        <p>Hello, {{ current_user.username }}! <a href="{{ url_for('logout') }}">Logout</a></p>
+    {% else %}
+        <p>You are not logged in. <a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('register') }}">Register</a>.</p>
+    {% endif %}
+
+    <h2>Recent Posts</h2>
+    {% for post in posts %}
+        <div style="border: 1px solid #ddd; margin: 10px; padding: 10px;">
+            <p><strong>{{ post.author.username }}</strong> on {{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}:</p>
+            <p>{{ post.content }}</p>
+        </div>
+    {% endfor %}
+
+    <!-- Add a form to create new posts -->
+    {% if current_user.is_authenticated %}
+        <h2>Create a New Post</h2>
+        <form method="post" action="{{ url_for('create_post') }}">
+            <label for="post_content">Post Content:</label>
+            <textarea id="post_content" name="post_content" rows="4" cols="50" required></textarea>
+            <br>
+            <button type="submit">Post</button>
+        </form>
+    {% endif %}
+
+</body>
+</html>
